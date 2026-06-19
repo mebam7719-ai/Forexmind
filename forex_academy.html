@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ForexMind Ethiopia — Trade Smarter. Think Deeper.</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --gold: #C8A96E;
+    --gold-light: #E8C98E;
+    --deep: #0A0E1A;
+    --deep2: #111827;
+    --panel: #161D2F;
+    --panel2: #1E2A42;
+    --accent: #3B82F6;
+    --accent2: #6366F1;
+    --green: #10B981;
+    --red: #EF4444;
+    --text: #E2E8F0;
+    --muted: #94A3B8;
+    --border: rgba(200,169,110,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--deep);
+    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* TICKER */
+  .ticker-bar {
+    background: var(--panel);
+    border-bottom: 1px solid var(--border);
+    padding: 8px 0;
+    overflow: hidden;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .ticker-track {
+    display: flex;
+    gap: 40px;
+    animation: ticker 30s linear infinite;
+    white-space: nowrap;
+  }
+  .ticker-item {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+  .ticker-pair { color: var(--gold); font-weight: 600; }
+  .ticker-price { color: var(--text); }
+  .tick-up { color: var(--green); }
+  .tick-down { color: var(--red); }
+  @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+  /* NAV */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 60px;
+    background: rgba(10,14,26,0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 37px;
+    z-index: 99;
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
+  }
+  .logo span { font-style: italic; font-weight: 400; }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+    cursor: pointer;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .btn-outline {
+    padding: 9px 20px;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    background: transparent;
+    transition: all 0.2s;
+  }
+  .btn-outline:hover { background: var(--gold); color: var(--deep); }
+  .btn-primary {
+    padding: 9px 20px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--deep);
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.9; }
+
+  /* HERO */
+  .hero {
+    min-height: 92vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    align-items: center;
+    padding: 80px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    right: -100px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(200,169,110,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -100px;
+    left: 100px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(59,130,246,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(200,169,110,0.1);
+    border: 1px solid rgba(200,169,110,0.3);
+    border-radius: 100px;
+    padding: 6px 14px;
+    font-size: 12px;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 24px;
+    letter-spacing: 0.5px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 58px;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    font-weight: 700;
+  }
+  .hero h1 em {
+    font-style: italic;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero p {
+    font-size: 17px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 36px;
+    max-width: 480px;
+  }
+  .hero-actions { display: flex; gap: 16px; align-items: center; }
+  .btn-hero {
+    padding: 14px 32px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--deep);
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  .btn-hero:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(200,169,110,0.3); }
+  .btn-hero-ghost {
+    padding: 14px 32px;
+    border: 1px solid rgba(226,232,240,0.2);
+    color: var(--text);
+    background: transparent;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  .btn-hero-ghost:hover { border-color: var(--gold); color: var(--gold); }
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+  .stat-item { display: flex; flex-direction: column; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--gold);
+  }
+  .stat-label { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  /* CHART VISUAL */
+  .hero-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-left: 40px;
+  }
+  .chart-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .chart-pair { font-weight: 700; font-size: 15px; }
+  .chart-price {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--green);
+  }
+  .chart-change {
+    font-size: 12px;
+    color: var(--green);
+    background: rgba(16,185,129,0.1);
+    border-radius: 4px;
+    padding: 3px 8px;
+  }
+  .mini-chart { width: 100%; height: 80px; }
+  .ai-insight {
+    background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(99,102,241,0.1));
+    border: 1px solid rgba(99,102,241,0.2);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .ai-icon {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .ai-insight-text { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .ai-insight-title { font-size: 12px; color: var(--accent); font-weight: 600; margin-bottom: 4px; }
+
+  /* SECTION COMMON */
+  section { padding: 80px 60px; }
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+  .section-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .section-sub {
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 540px;
+    line-height: 1.7;
+    margin-bottom: 48px;
+  }
+
+  /* VIDEO LESSONS */
+  .videos-section { background: var(--deep2); }
+  .videos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .video-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .video-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
+  .video-thumb {
+    position: relative;
+    height: 170px;
+    background: linear-gradient(135deg, var(--panel2), #0d1b35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .video-thumb::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(99,102,241,0.1));
+  }
+  .play-btn {
+    width: 52px;
+    height: 52px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(4px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: background 0.2s;
+    position: relative;
+    z-index: 1;
+  }
+  .video-card:hover .play-btn { background: var(--gold); }
+  .video-level {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+    border-radius: 100px;
+    padding: 4px 10px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    z-index: 1;
+  }
+  .level-beginner { color: var(--green); border: 1px solid rgba(16,185,129,0.3); }
+  .level-intermediate { color: var(--gold); border: 1px solid rgba(200,169,110,0.3); }
+  .level-advanced { color: #F472B6; border: 1px solid rgba(244,114,182,0.3); }
+  .video-duration {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    z-index: 1;
+  }
+  .video-info { padding: 18px; }
+  .video-category { font-size: 11px; color: var(--gold); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .video-title { font-size: 15px; font-weight: 600; line-height: 1.4; margin-bottom: 10px; }
+  .video-meta { display: flex; justify-content: space-between; align-items: center; }
+  .video-ai-tag {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--accent);
+    background: rgba(59,130,246,0.1);
+    border-radius: 100px;
+    padding: 3px 10px;
+  }
+  .video-views { font-size: 11px; color: var(--muted); }
+  .video-chart-svg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0.3;
+    z-index: 0;
+  }
+
+  /* AI VIDEO PLAYER MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(6px);
+  }
+  .modal-overlay.active { display: flex; }
+  .modal {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    width: 90%;
+    max-width: 720px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+  }
+  .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    color: var(--muted);
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+  .modal-close:hover { color: var(--text); background: var(--deep); }
+  .ai-player {
+    background: linear-gradient(135deg, #0d1b35, #111827);
+    border-radius: 12px;
+    height: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .ai-wave {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+  .wave-bar {
+    width: 4px;
+    background: var(--gold);
+    border-radius: 2px;
+    animation: wave 1.2s ease-in-out infinite;
+  }
+  .wave-bar:nth-child(2) { animation-delay: 0.1s; }
+  .wave-bar:nth-child(3) { animation-delay: 0.2s; }
+  .wave-bar:nth-child(4) { animation-delay: 0.3s; }
+  .wave-bar:nth-child(5) { animation-delay: 0.4s; }
+  .wave-bar:nth-child(6) { animation-delay: 0.3s; }
+  .wave-bar:nth-child(7) { animation-delay: 0.2s; }
+  @keyframes wave {
+    0%, 100% { height: 8px; opacity: 0.4; }
+    50% { height: 40px; opacity: 1; }
+  }
+  .ai-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    position: relative;
+  }
+  .ai-avatar::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
+  }
+  .ai-caption {
+    background: rgba(0,0,0,0.5);
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 14px;
+    color: var(--text);
+    text-align: center;
+    max-width: 80%;
+    line-height: 1.6;
+    position: absolute;
+    bottom: 20px;
+  }
+  .ai-chat-area {
+    background: var(--deep);
+    border-radius: 12px;
+    padding: 16px;
+    height: 150px;
+    overflow-y: auto;
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .chat-msg {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .chat-msg.user { flex-direction: row-reverse; }
+  .chat-bubble {
+    max-width: 75%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .chat-msg:not(.user) .chat-bubble { background: var(--panel2); color: var(--text); }
+  .chat-msg.user .chat-bubble { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; }
+  .chat-icon { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+  .chat-msg:not(.user) .chat-icon { background: linear-gradient(135deg, var(--gold), var(--gold-light)); }
+  .chat-msg.user .chat-icon { background: var(--panel2); }
+  .chat-input-row {
+    display: flex;
+    gap: 10px;
+  }
+  .chat-input {
+    flex: 1;
+    background: var(--deep);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    outline: none;
+  }
+  .chat-input:focus { border-color: var(--gold); }
+  .chat-send {
+    padding: 10px 20px;
+    background: var(--gold);
+    color: var(--deep);
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: 'Space Grotesk', sans-serif;
+    transition: opacity 0.2s;
+  }
+  .chat-send:hover { opacity: 0.85; }
+
+  /* BOOKS */
+  .books-section { background: var(--deep); }
+  .books-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .book-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .book-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .book-card:hover { transform: translateY(-3px); border-color: rgba(200,169,110,0.3); }
+  .book-card:hover::before { opacity: 1; }
+  .book-emoji { font-size: 40px; margin-bottom: 14px; display: block; }
+  .book-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .book-author { font-size: 12px; color: var(--gold); font-weight: 600; margin-bottom: 12px; }
+  .book-note { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 14px; }
+  .book-lesson {
+    background: rgba(200,169,110,0.08);
+    border-left: 2px solid var(--gold);
+    padding: 10px 12px;
+    border-radius: 0 8px 8px 0;
+    font-size: 12px;
+    color: var(--gold-light);
+    font-style: italic;
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+  .book-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .book-tag {
+    background: var(--panel2);
+    border-radius: 100px;
+    padding: 3px 10px;
+    font-size: 10px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  /* BOOK MODAL */
+  .book-modal-content { }
+  .book-modal-header { display: flex; gap: 20px; align-items: flex-start; margin-bottom: 24px; }
+  .book-modal-emoji { font-size: 60px; }
+  .book-modal-title { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+  .book-modal-author { color: var(--gold); font-weight: 600; margin-bottom: 8px; }
+  .book-modal-rating { display: flex; gap: 4px; color: var(--gold); font-size: 14px; }
+  .book-full-note { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 20px; }
+  .book-key-lessons h4 { font-size: 14px; font-weight: 700; margin-bottom: 12px; color: var(--gold); }
+  .lesson-item { display: flex; gap: 10px; margin-bottom: 10px; font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .lesson-dot { color: var(--gold); font-size: 18px; line-height: 1; flex-shrink: 0; margin-top: 1px; }
+
+  /* PREMIUM */
+  .premium-section { background: var(--deep2); }
+  .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 20px;
+  }
+  .plan-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 32px;
+    position: relative;
+    transition: transform 0.2s;
+  }
+  .plan-card:hover { transform: translateY(-4px); }
+  .plan-card.featured {
+    background: linear-gradient(180deg, rgba(200,169,110,0.05) 0%, var(--panel) 100%);
+    border-color: rgba(200,169,110,0.4);
+  }
+  .plan-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--deep);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 16px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+  .plan-name { font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .plan-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    line-height: 1;
+  }
+  .plan-price span { font-size: 18px; color: var(--muted); }
+  .plan-currency { font-size: 14px; color: var(--gold); margin-bottom: 6px; font-weight: 600; }
+  .plan-period { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+  .plan-divider { height: 1px; background: var(--border); margin-bottom: 24px; }
+  .plan-features { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+  .plan-feature {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .feature-check { color: var(--green); font-size: 16px; }
+  .feature-x { color: #475569; }
+  .plan-btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    font-family: 'Space Grotesk', sans-serif;
+    transition: all 0.2s;
+  }
+  .plan-btn-outline {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+  .plan-btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+  .plan-btn-gold {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--deep);
+  }
+  .plan-btn-gold:hover { opacity: 0.9; box-shadow: 0 6px 24px rgba(200,169,110,0.3); }
+
+  /* PAYMENT MODAL */
+  .payment-form { display: flex; flex-direction: column; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-label { font-size: 12px; color: var(--muted); font-weight: 600; }
+  .form-input {
+    background: var(--deep);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-input:focus { border-color: var(--gold); }
+  .payment-methods {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+  .pay-method {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s;
+    color: var(--muted);
+  }
+  .pay-method.active { border-color: var(--gold); color: var(--gold); background: rgba(200,169,110,0.05); }
+  .payment-summary {
+    background: var(--deep);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .payment-summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: var(--muted);
+  }
+  .payment-summary-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--gold);
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+    margin-top: 4px;
+  }
+  .btn-pay {
+    padding: 14px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--deep);
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Space Grotesk', sans-serif;
+    transition: opacity 0.2s;
+  }
+  .btn-pay:hover { opacity: 0.9; }
+  .success-screen { text-align: center; padding: 20px; }
+  .success-icon { font-size: 60px; margin-bottom: 16px; }
+  .success-title { font-family: 'Playfair Display', serif; font-size: 26px; margin-bottom: 10px; }
+  .success-sub { color: var(--muted); font-size: 14px; line-height: 1.7; }
+
+  /* TESTIMONIALS */
+  .testimonials-section { background: var(--deep); }
+  .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .testimonial-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+  }
+  .stars { color: var(--gold); font-size: 14px; margin-bottom: 12px; }
+  .testimonial-text { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 16px; font-style: italic; }
+  .testimonial-author { display: flex; gap: 12px; align-items: center; }
+  .author-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    background: var(--panel2);
+  }
+  .author-name { font-size: 14px; font-weight: 600; }
+  .author-loc { font-size: 12px; color: var(--muted); }
+
+  /* FOOTER */
+  footer {
+    background: var(--panel);
+    border-top: 1px solid var(--border);
+    padding: 48px 60px 32px;
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+  .footer-brand .logo { font-size: 24px; }
+  .footer-desc { font-size: 13px; color: var(--muted); margin-top: 12px; line-height: 1.7; }
+  .footer-col h4 { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 16px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.2s; cursor: pointer; }
+  .footer-col a:hover { color: var(--gold); }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 40px 20px; }
+    .hero-visual { padding-left: 0; margin-top: 40px; }
+    .hero h1 { font-size: 38px; }
+    section { padding: 60px 20px; }
+    .videos-grid { grid-template-columns: 1fr; }
+    .books-grid { grid-template-columns: repeat(2, 1fr); }
+    .plans-grid { grid-template-columns: 1fr; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LIVE TICKER -->
+<div class="ticker-bar">
+  <div class="ticker-track" id="tickerTrack">
+    <div class="ticker-item"><span class="ticker-pair">EUR/USD</span><span class="ticker-price">1.0842</span><span class="tick-up">▲ +0.23%</span></div>
+    <div class="ticker-item"><span class="ticker-pair">GBP/USD</span><span class="ticker-price">1.2691</span><span class="tick-down">▼ -0.11%</span></div>
+    <div class="ticker-item"><span class="ticker-pair">USD/ETB</span><span class="ticker-price">127.45</span><span class="tick-up">▲ +0.08%</span></div>
+    <div class="ticker-item"><span class="ticker-pair">USD/JPY</span><span class="ticker-price">157.22</span><span class="tick-up">▲ +0.34%</span></div>
+    <div class="ticker-item"><span class="ticker-pair">AUD/USD</span><span class="ticker-price">0.6571</span><span class="tick-down">▼ -0.18%</span></div>
+    <div class="ticker-item"><span class="ticker-pair">USD/CAD</span><span class="ticker-price">1.3612</span><span class="tick-up">▲ +0.09%</span></div>
+    <div class="ticker-item"><span class="ticker-pair">EUR/ETB</span><span class="ticker-price">138.12</span><span class="tick-up">▲ +0.31%</span></div>
+    <div class="ticker-item"><span class="ticker-pair">XAU/USD</span><span class="ticker-price">2,341.80</span><span class="tick-up">▲ +0.52%</span></div>
+    <div class="ticker-item"><span class="ticker-pair">EUR/USD</span><span class="ticker-price">1.0842</span><span class="tick-up">▲ +0.23%</span></div>
+    <div class="ticker-item"><span class="ticker-pair">GBP/USD</span><span class="ticker-price">1.2691</span><span class="tick-down">▼ -0.11%</span></div>
+    <div class="ticker-item"><span class="ticker-pair">USD/ETB</span><span class="ticker-price">127.45</span><span class="tick-up">▲ +0.08%</span></div>
+    <div class="ticker-item"><span class="ticker-pair">USD/JPY</span><span class="ticker-price">157.22</span><span class="tick-up">▲ +0.34%</span></div>
+    <div class="ticker-item"><span class="ticker-pair">AUD/USD</span><span class="ticker-price">0.6571</span><span class="tick-down">▼ -0.18%</span></div>
+    <div class="ticker-item"><span class="ticker-pair">USD/CAD</span><span class="ticker-price">1.3612</span><span class="tick-up">▲ +0.09%</span></div>
+    <div class="ticker-item"><span class="ticker-pair">EUR/ETB</span><span class="ticker-price">138.12</span><span class="tick-up">▲ +0.31%</span></div>
+    <div class="ticker-item"><span class="ticker-pair">XAU/USD</span><span class="ticker-price">2,341.80</span><span class="tick-up">▲ +0.52%</span></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">ForexMind <span>Ethiopia</span></div>
+  <ul class="nav-links">
+    <li><a onclick="scrollTo('videos')">AI Videos</a></li>
+    <li><a onclick="scrollTo('books')">Psychology Books</a></li>
+    <li><a onclick="scrollTo('premium')">Premium</a></li>
+    <li><a>About</a></li>
+  </ul>
+  <div class="nav-cta">
+    <button class="btn-outline">Sign In</button>
+    <button class="btn-primary" onclick="openPremiumModal('Pro', 799, 'monthly')">Get Premium</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">🇪🇹 Ethiopia's #1 Forex Learning Platform</div>
+    <h1>Master Forex.<br>Master Your <em>Mind.</em></h1>
+    <p>AI-powered video lessons, psychology insights from the world's greatest trading books, and real tools — designed for Ethiopian traders ready to move markets.</p>
+    <div class="hero-actions">
+      <button class="btn-hero" onclick="scrollTo('videos')">Start Learning Free</button>
+      <button class="btn-hero-ghost" onclick="scrollTo('premium')">View Premium Plans</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item"><span class="stat-num">12,400+</span><span class="stat-label">Ethiopian Traders</span></div>
+      <div class="stat-item"><span class="stat-num">84</span><span class="stat-label">AI Video Lessons</span></div>
+      <div class="stat-item"><span class="stat-num">18</span><span class="stat-label">Psychology Books</span></div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-pair">EUR/USD</div>
+          <div style="font-size:12px;color:var(--muted);">Euro / US Dollar</div>
+        </div>
+        <div>
+          <div class="chart-price">1.0842</div>
+          <div class="chart-change">▲ +0.23% today</div>
+        </div>
+      </div>
+      <svg class="mini-chart" viewBox="0 0 300 80" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#10B981" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#10B981" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <path d="M0,60 L20,55 L40,58 L60,50 L80,52 L100,44 L120,46 L140,38 L160,40 L180,32 L200,28 L220,34 L240,22 L260,18 L280,20 L300,12" fill="none" stroke="#10B981" stroke-width="2"/>
+        <path d="M0,60 L20,55 L40,58 L60,50 L80,52 L100,44 L120,46 L140,38 L160,40 L180,32 L200,28 L220,34 L240,22 L260,18 L280,20 L300,12 L300,80 L0,80Z" fill="url(#chartGrad)"/>
+      </svg>
+    </div>
+    <div class="ai-insight">
+      <div class="ai-icon">🤖</div>
+      <div>
+        <div class="ai-insight-title">AI MARKET INSIGHT</div>
+        <div class="ai-insight-text">EUR/USD showing a bullish flag pattern on H4. The 1.0820 support held — watch for a breakout above 1.0870. Risk management: keep stop below the 1.0800 demand zone.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI VIDEO LESSONS -->
+<section class="videos-section" id="videos">
+  <div class="section-label">AI-Powered Learning</div>
+  <div class="section-title">Learn From Your <em>AI Tutor</em></div>
+  <div class="section-sub">Watch, pause, and ask questions mid-lesson. Our AI tutor explains every concept in plain language and adapts to your level.</div>
+
+  <div class="videos-grid">
+
+    <div class="video-card" onclick="openVideoModal('What is Forex? The Complete Beginner Map', 'beginner', 'Market Basics', '18:24', 'Forex is the global market where currencies are exchanged. This lesson walks you through how currency pairs work, what drives price movement, and how to read a basic forex quote — all with real ETB examples.')">
+      <div class="video-thumb">
+        <svg class="video-chart-svg" viewBox="0 0 300 120" preserveAspectRatio="none">
+          <path d="M0,100 Q40,60 80,70 T160,40 T240,50 T300,20" fill="none" stroke="#3B82F6" stroke-width="1.5" opacity="0.5"/>
+        </svg>
+        <div class="play-btn">▶</div>
+        <div class="video-level level-beginner">Beginner</div>
+        <div class="video-duration">18:24</div>
+      </div>
+      <div class="video-info">
+        <div class="video-category">Market Basics</div>
+        <div class="video-title">What is Forex? The Complete Beginner Map</div>
+        <div class="video-meta">
+          <div class="video-ai-tag">🤖 AI Tutor</div>
+          <div class="video-views">4,210 views</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card" onclick="openVideoModal('Reading Candlesticks Like a Pro', 'intermediate', 'Technical Analysis', '22:11', 'Candlestick patterns reveal the psychology of buyers and sellers in every bar. Learn doji, hammer, engulfing patterns and how to combine them with support/resistance to find high-probability trades.')">
+      <div class="video-thumb" style="background: linear-gradient(135deg, #1a0d2e, #111827);">
+        <svg class="video-chart-svg" viewBox="0 0 300 120" preserveAspectRatio="none">
+          <path d="M0,80 Q50,50 100,60 T200,30 T300,45" fill="none" stroke="#C8A96E" stroke-width="1.5" opacity="0.5"/>
+        </svg>
+        <div class="play-btn">▶</div>
+        <div class="video-level level-intermediate">Intermediate</div>
+        <div class="video-duration">22:11</div>
+      </div>
+      <div class="video-info">
+        <div class="video-category">Technical Analysis</div>
+        <div class="video-title">Reading Candlesticks Like a Pro</div>
+        <div class="video-meta">
+          <div class="video-ai-tag">🤖 AI Tutor</div>
+          <div class="video-views">6,840 views</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card" onclick="openVideoModal('The Trader\'s Psychology: Controlling Fear & Greed', 'beginner', 'Psychology', '26:05', 'The biggest enemy of any trader is not the market — it\'s your own mind. This lesson digs into fear, greed, loss aversion, and FOMO with actionable techniques to stay disciplined during drawdowns.')">
+      <div class="video-thumb" style="background: linear-gradient(135deg, #0d1f1a, #111827);">
+        <svg class="video-chart-svg" viewBox="0 0 300 120" preserveAspectRatio="none">
+          <path d="M0,50 Q30,80 80,30 T180,60 T300,20" fill="none" stroke="#10B981" stroke-width="1.5" opacity="0.5"/>
+        </svg>
+        <div class="play-btn">▶</div>
+        <div class="video-level level-beginner">Beginner</div>
+        <div class="video-duration">26:05</div>
+      </div>
+      <div class="video-info">
+        <div class="video-category">Psychology</div>
+        <div class="video-title">The Trader's Psychology: Controlling Fear & Greed</div>
+        <div class="video-meta">
+          <div class="video-ai-tag">🤖 AI Tutor</div>
+          <div class="video-views">9,120 views</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card" onclick="openVideoModal('Supply & Demand: Where Big Money Moves Markets', 'intermediate', 'Market Structure', '31:40', 'Institutional traders leave footprints in price. Learn how to identify genuine supply and demand zones, separate them from false signals, and time entries at key institutional levels.')">
+      <div class="video-thumb" style="background: linear-gradient(135deg, #1a1208, #111827);">
+        <svg class="video-chart-svg" viewBox="0 0 300 120" preserveAspectRatio="none">
+          <path d="M0,90 Q60,20 120,50 T240,25 T300,60" fill="none" stroke="#C8A96E" stroke-width="1.5" opacity="0.5"/>
+        </svg>
+        <div class="play-btn">▶</div>
+        <div class="video-level level-intermediate">Intermediate</div>
+        <div class="video-duration">31:40</div>
+      </div>
+      <div class="video-info">
+        <div class="video-category">Market Structure</div>
+        <div class="video-title">Supply & Demand: Where Big Money Moves Markets</div>
+        <div class="video-meta">
+          <div class="video-ai-tag">🤖 AI Tutor</div>
+          <div class="video-views">7,390 views</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card" onclick="openVideoModal('Risk Management: The Rule That Keeps You Alive', 'beginner', 'Risk Management', '19:55', 'Most traders don\'t lose because of bad analysis — they lose because of bad risk management. This lesson covers the 1% rule, position sizing, risk-reward ratios, and how to survive a losing streak.')">
+      <div class="video-thumb" style="background: linear-gradient(135deg, #1a0d0d, #111827);">
+        <svg class="video-chart-svg" viewBox="0 0 300 120" preserveAspectRatio="none">
+          <path d="M0,30 Q40,90 90,40 T200,70 T300,15" fill="none" stroke="#EF4444" stroke-width="1.5" opacity="0.5"/>
+        </svg>
+        <div class="play-btn">▶</div>
+        <div class="video-level level-beginner">Beginner</div>
+        <div class="video-duration">19:55</div>
+      </div>
+      <div class="video-info">
+        <div class="video-category">Risk Management</div>
+        <div class="video-title">Risk Management: The Rule That Keeps You Alive</div>
+        <div class="video-meta">
+          <div class="video-ai-tag">🤖 AI Tutor</div>
+          <div class="video-views">11,200 views</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card" onclick="openVideoModal('ICT Smart Money Concepts Deep Dive', 'advanced', 'Advanced Strategy', '44:18', 'Dive into Inner Circle Trader concepts: order blocks, fair value gaps, breaker blocks, and liquidity pools. This premium lesson shows how to think like an institutional trader and align with smart money flow.')">
+      <div class="video-thumb" style="background: linear-gradient(135deg, #0d0d2e, #111827);">
+        <svg class="video-chart-svg" viewBox="0 0 300 120" preserveAspectRatio="none">
+          <path d="M0,70 L40,65 L80,30 L100,50 L140,20 L180,40 L220,10 L260,30 L300,15" fill="none" stroke="#F472B6" stroke-width="1.5" opacity="0.5"/>
+        </svg>
+        <div class="play-btn">🔒</div>
+        <div class="video-level level-advanced">Advanced · Premium</div>
+        <div class="video-duration">44:18</div>
+      </div>
+      <div class="video-info">
+        <div class="video-category">Advanced Strategy</div>
+        <div class="video-title">ICT Smart Money Concepts Deep Dive</div>
+        <div class="video-meta">
+          <div class="video-ai-tag">🤖 AI Tutor</div>
+          <div class="video-views">Premium Only</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PSYCHOLOGY BOOKS -->
+<section class="books-section" id="books">
+  <div class="section-label">Mental Edge</div>
+  <div class="section-title">Famous Books, <em>Distilled</em> for Traders</div>
+  <div class="section-sub">The world's best psychology books — summarized with the trading lesson every Ethiopian forex trader needs to internalize.</div>
+
+  <div class="books-grid">
+
+    <div class="book-card" onclick="openBookModal(0)">
+      <span class="book-emoji">🧠</span>
+      <div class="book-title">Trading in the Zone</div>
+      <div class="book-author">Mark Douglas</div>
+      <div class="book-note">The bible of trading psychology. Douglas reveals why most traders fail not because of bad strategy, but because they can't handle randomness and uncertainty.</div>
+      <div class="book-lesson">"Every moment in the market is unique. Thinking in probabilities is the only edge that lasts."</div>
+      <div class="book-tags"><span class="book-tag">Mindset</span><span class="book-tag">Discipline</span><span class="book-tag">Must-Read</span></div>
+    </div>
+
+    <div class="book-card" onclick="openBookModal(1)">
+      <span class="book-emoji">💰</span>
+      <div class="book-title">The Psychology of Money</div>
+      <div class="book-author">Morgan Housel</div>
+      <div class="book-note">Money is more about behavior than intelligence. Housel shows how emotions, biases, and personal history shape every financial decision we make.</div>
+      <div class="book-lesson">"Wealth is what you don't spend. The less you need to look smart, the more you'll accumulate."</div>
+      <div class="book-tags"><span class="book-tag">Wealth</span><span class="book-tag">Behavior</span><span class="book-tag">Beginner</span></div>
+    </div>
+
+    <div class="book-card" onclick="openBookModal(2)">
+      <span class="book-emoji">⚡</span>
+      <div class="book-title">Thinking, Fast and Slow</div>
+      <div class="book-author">Daniel Kahneman</div>
+      <div class="book-note">Nobel Prize winner Kahneman exposes two systems of thinking. System 1 reacts fast — and makes the impulsive trades that blow accounts. System 2 thinks slow — and wins.</div>
+      <div class="book-lesson">"Loss aversion is twice as powerful as the pleasure of gain. That's why you hold losers and cut winners."</div>
+      <div class="book-tags"><span class="book-tag">Cognitive Bias</span><span class="book-tag">Science</span><span class="book-tag">Deep</span></div>
+    </div>
+
+    <div class="book-card" onclick="openBookModal(3)">
+      <span class="book-emoji">🦢</span>
+      <div class="book-title">The Black Swan</div>
+      <div class="book-author">Nassim Nicholas Taleb</div>
+      <div class="book-note">Markets are shaped by rare, unpredictable events more than models suggest. Taleb argues that surviving extreme risk matters more than predicting normal market moves.</div>
+      <div class="book-lesson">"Protect yourself from extreme losses first. Gains will follow. The trader who survives long enough always wins."</div>
+      <div class="book-tags"><span class="book-tag">Risk</span><span class="book-tag">Uncertainty</span><span class="book-tag">Advanced</span></div>
+    </div>
+
+    <div class="book-card" onclick="openBookModal(4)">
+      <span class="book-emoji">🎯</span>
+      <div class="book-title">Atomic Habits</div>
+      <div class="book-author">James Clear</div>
+      <div class="book-note">Trading is a habits game. Every journal entry, every pre-session review, every risk check is a vote for the trader you're becoming. Clear's system makes consistency automatic.</div>
+      <div class="book-lesson">"You don't rise to the level of your goals, you fall to the level of your systems. Build a trading system you can repeat."</div>
+      <div class="book-tags"><span class="book-tag">Habits</span><span class="book-tag">Systems</span><span class="book-tag">Practical</span></div>
+    </div>
+
+    <div class="book-card" onclick="openBookModal(5)">
+      <span class="book-emoji">📈</span>
+      <div class="book-title">Market Wizards</div>
+      <div class="book-author">Jack D. Schwager</div>
+      <div class="book-note">Interviews with the world's greatest traders reveal one shared truth: risk management and psychological consistency matter far more than any trading strategy.</div>
+      <div class="book-lesson">"The best traders all have different methods, but they all have the same psychology — absolute discipline."</div>
+      <div class="book-tags"><span class="book-tag">Interviews</span><span class="book-tag">Strategy</span><span class="book-tag">Inspiring</span></div>
+    </div>
+
+    <div class="book-card" onclick="openBookModal(6)">
+      <span class="book-emoji">🔑</span>
+      <div class="book-title">Reminiscences of a Stock Operator</div>
+      <div class="book-author">Edwin Lefèvre</div>
+      <div class="book-note">The fictionalized story of Jesse Livermore — the greatest speculator who ever lived. His wins and catastrophic losses teach timeless lessons about ego and markets.</div>
+      <div class="book-lesson">"The market doesn't know you exist. It doesn't care about your opinion. Only price is truth."</div>
+      <div class="book-tags"><span class="book-tag">Classic</span><span class="book-tag">History</span><span class="book-tag">Story</span></div>
+    </div>
+
+    <div class="book-card" onclick="openBookModal(7)">
+      <span class="book-emoji">🌊</span>
+      <div class="book-title">The Disciplined Trader</div>
+      <div class="book-author">Mark Douglas</div>
+      <div class="book-note">Douglas's first masterpiece explores why our mental frameworks are incompatible with trading success, and how to rebuild beliefs from scratch for consistent performance.</div>
+      <div class="book-lesson">"Until you take 100% responsibility for every trade, you will always find something external to blame — and never improve."</div>
+      <div class="book-tags"><span class="book-tag">Discipline</span><span class="book-tag">Beliefs</span><span class="book-tag">Foundation</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PREMIUM PLANS -->
+<section class="premium-section" id="premium">
+  <div class="section-label">Unlock Everything</div>
+  <div class="section-title">Choose Your <em>Plan</em></div>
+  <div class="section-sub">All prices in Ethiopian Birr (ETB). Cancel anytime. No hidden fees.</div>
+
+  <div class="plans-grid">
+
+    <div class="plan-card">
+      <div class="plan-name">Free</div>
+      <div class="plan-price">0 <span>ETB</span></div>
+      <div class="plan-currency">Ethiopian Birr</div>
+      <div class="plan-period">Forever free — no credit card needed</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li class="plan-feature"><span class="feature-check">✓</span> 10 beginner video lessons</li>
+        <li class="plan-feature"><span class="feature-check">✓</span> 3 psychology book summaries</li>
+        <li class="plan-feature"><span class="feature-check">✓</span> AI tutor (5 questions/day)</li>
+        <li class="plan-feature"><span class="feature-check">✓</span> Live forex ticker</li>
+        <li class="plan-feature"><span class="feature-x">✗</span> <span style="color:#475569">Advanced lessons (84 total)</span></li>
+        <li class="plan-feature"><span class="feature-x">✗</span> <span style="color:#475569">Full book library (18 books)</span></li>
+        <li class="plan-feature"><span class="feature-x">✗</span> <span style="color:#475569">Live trading signals</span></li>
+        <li class="plan-feature"><span class="feature-x">✗</span> <span style="color:#475569">1-on-1 AI coaching sessions</span></li>
+      </ul>
+      <button class="plan-btn plan-btn-outline" onclick="alert('You are already on the free plan!')">Current Plan</button>
+    </div>
+
+    <div class="plan-card featured">
+      <div class="plan-badge">⭐ Most Popular</div>
+      <div class="plan-name">Pro Trader</div>
+      <div class="plan-price">799 <span>ETB</span></div>
+      <div class="plan-currency">Ethiopian Birr</div>
+      <div class="plan-period">per month · billed monthly</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li class="plan-feature"><span class="feature-check">✓</span> All 84 AI video lessons</li>
+        <li class="plan-feature"><span class="feature-check">✓</span> Full library of 18 psychology books</li>
+        <li class="plan-feature"><span class="feature-check">✓</span> Unlimited AI tutor access</li>
+        <li class="plan-feature"><span class="feature-check">✓</span> Live trading signals (EUR, GBP, ETB)</li>
+        <li class="plan-feature"><span class="feature-check">✓</span> Trade journal with AI review</li>
+        <li class="plan-feature"><span class="feature-check">✓</span> Weekly live webinars</li>
+        <li class="plan-feature"><span class="feature-x">✗</span> <span style="color:#475569">1-on-1 coaching calls</span></li>
+        <li class="plan-feature"><span class="feature-x">✗</span> <span style="color:#475569">Private community access</span></li>
+      </ul>
+      <button class="plan-btn plan-btn-gold" onclick="openPremiumModal('Pro Trader', 799, 'monthly')">Start Pro — 799 ETB/mo</button>
+    </div>
+
+    <div class="plan-card">
+      <div class="plan-name">Elite Mastery</div>
+      <div class="plan-price">1,990 <span>ETB</span></div>
+      <div class="plan-currency">Ethiopian Birr</div>
+      <div class="plan-period">per month · billed monthly</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li class="plan-feature"><span class="feature-check">✓</span> Everything in Pro Trader</li>
+        <li class="plan-feature"><span class="feature-check">✓</span> 2× monthly 1-on-1 coaching calls</li>
+        <li class="plan-feature"><span class="feature-check">✓</span> Private Elite traders community</li>
+        <li class="plan-feature"><span class="feature-check">✓</span> Institutional-grade analysis tools</li>
+        <li class="plan-feature"><span class="feature-check">✓</span> Custom AI trading plan generator</li>
+        <li class="plan-feature"><span class="feature-check">✓</span> Portfolio review by expert traders</li>
+        <li class="plan-feature"><span class="feature-check">✓</span> Priority support (24hr response)</li>
+        <li class="plan-feature"><span class="feature-check">✓</span> Lifetime access to future courses</li>
+      </ul>
+      <button class="plan-btn plan-btn-outline" onclick="openPremiumModal('Elite Mastery', 1990, 'monthly')" style="border-color:var(--gold);color:var(--gold)">Go Elite — 1,990 ETB/mo</button>
+    </div>
+
+  </div>
+
+  <!-- Annual savings note -->
+  <div style="text-align:center;margin-top:24px;font-size:14px;color:var(--muted);">
+    💡 Pay annually and save <strong style="color:var(--gold)">2 months free</strong> — Pro: 6,392 ETB/yr · Elite: 15,920 ETB/yr
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section">
+  <div class="section-label">Real Results</div>
+  <div class="section-title">Traders <em>Across Ethiopia</em> Speak</div>
+  <div class="section-sub">From Addis to Hawassa — traders who committed to learning are seeing the difference.</div>
+
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-text">"Before ForexMind, I was gambling without knowing it. The Trading in the Zone summary opened my eyes. Now I think in probabilities, not predictions."</div>
+      <div class="testimonial-author">
+        <div class="author-avatar">👨🏾</div>
+        <div><div class="author-name">Dawit Mengistu</div><div class="author-loc">Addis Ababa · Pro Trader</div></div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-text">"The AI tutor explains things in a way that makes sense for me. I asked about USD/ETB volatility and got a clear breakdown. This is unlike any other platform."</div>
+      <div class="testimonial-author">
+        <div class="author-avatar">👩🏾</div>
+        <div><div class="author-name">Sara Bekele</div><div class="author-loc">Hawassa · Elite Member</div></div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★☆</div>
+      <div class="testimonial-text">"799 Birr per month is worth every cent. I've learned more in 3 months here than 2 years of watching random YouTube videos. The risk management course alone saved my account."</div>
+      <div class="testimonial-author">
+        <div class="author-avatar">👨🏾‍💼</div>
+        <div><div class="author-name">Yonas Tadesse</div><div class="author-loc">Dire Dawa · Pro Trader</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="logo">ForexMind <span>Ethiopia</span></div>
+      <div class="footer-desc">Ethiopia's premier AI-powered forex learning platform. Built for Ethiopian traders, priced in Birr, designed to build real market wisdom.</div>
+    </div>
+    <div class="footer-col">
+      <h4>Learn</h4>
+      <ul>
+        <li><a>AI Video Library</a></li>
+        <li><a>Psychology Books</a></li>
+        <li><a>Live Webinars</a></li>
+        <li><a>Trading Journal</a></li>
+        <li><a>Market Signals</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a>About Us</a></li>
+        <li><a>Instructors</a></li>
+        <li><a>Blog</a></li>
+        <li><a>Careers</a></li>
+        <li><a>Press</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a>Help Center</a></li>
+        <li><a>Contact Us</a></li>
+        <li><a>Privacy Policy</a></li>
+        <li><a>Terms of Use</a></li>
+        <li><a>Telegram Group</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 ForexMind Ethiopia. All rights reserved. Forex trading involves risk.</div>
+    <div>Made with ❤️ for Ethiopian traders 🇪🇹</div>
+  </div>
+</footer>
+
+<!-- VIDEO MODAL -->
+<div class="modal-overlay" id="videoModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('videoModal')">✕</button>
+    <div id="videoModalContent"></div>
+  </div>
+</div>
+
+<!-- BOOK MODAL -->
+<div class="modal-overlay" id="bookModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('bookModal')">✕</button>
+    <div id="bookModalContent"></div>
+  </div>
+</div>
+
+<!-- PAYMENT MODAL -->
+<div class="modal-overlay" id="paymentModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('paymentModal')">✕</button>
+    <div id="paymentModalContent"></div>
+  </div>
+</div>
+
+<script>
+// Book data
+const books = [
+  {
+    emoji: '🧠', title: 'Trading in the Zone', author: 'Mark Douglas', stars: 5,
+    note: 'The definitive guide to trading psychology. Douglas explains why traders with good systems still lose consistently — because our minds are wired for social survival, not market randomness. He introduces the concept of "thinking in probabilities" as the foundation of consistent performance.',
+    lessons: [
+      'Accept that every trade has an uncertain outcome, no matter how good the setup looks.',
+      'Your edge only plays out over a series of trades — one loss proves nothing.',
+      'Eliminate the need to be right. Replace it with the need to manage risk.',
+      'Define your risk before every trade so uncertainty becomes manageable.',
+      'The market has no beginning or end — there\'s only now. Trade what you see, not what you think.'
+    ]
+  },
+  {
+    emoji: '💰', title: 'The Psychology of Money', author: 'Morgan Housel', stars: 5,
+    note: 'Housel argues that financial success has less to do with intelligence and more to do with behavior. Through 20 short chapters, he explores how our personal history, emotions, and psychological biases shape every money decision — including how we trade currencies.',
+    lessons: [
+      'Getting rich and staying rich require two different skill sets — most traders master neither.',
+      'Luck plays a bigger role in outcomes than we admit; respect that when sizing positions.',
+      'Save and preserve capital — you can\'t trade if you\'re broke.',
+      'Long-term compounding beats short-term excitement every time.',
+      'Wealth is built by avoiding catastrophic mistakes, not just making good trades.'
+    ]
+  },
+  {
+    emoji: '⚡', title: 'Thinking, Fast and Slow', author: 'Daniel Kahneman', stars: 5,
+    note: 'Kahneman\'s Nobel Prize-winning research reveals the two systems driving human decisions: System 1 (fast, emotional, automatic) and System 2 (slow, deliberate, rational). Traders who react from System 1 blow their accounts. The best traders force System 2 thinking even in volatile markets.',
+    lessons: [
+      'Loss aversion makes you feel the pain of loss twice as much as the pleasure of equal gain.',
+      'Overconfidence bias causes you to trade too large and too frequently.',
+      'Anchoring to your entry price clouds your judgment on when to exit.',
+      'Create checklists and rules to force System 2 engagement before placing trades.',
+      'The availability heuristic makes recent losses feel catastrophic and distorts risk perception.'
+    ]
+  },
+  {
+    emoji: '🦢', title: 'The Black Swan', author: 'Nassim Nicholas Taleb', stars: 4,
+    note: 'Taleb argues that rare, unpredictable events (Black Swans) dominate history and markets, yet we pretend we can predict them. For forex traders, this means the biggest risk isn\'t your average trade — it\'s the one trade or market event that wipes out months of gains.',
+    lessons: [
+      'Risk management is about surviving the trade you didn\'t see coming, not just the ones you did.',
+      'Never risk so much on one trade that a Black Swan can eliminate you from the game.',
+      'Be humble about your predictions — models fail exactly when you need them most.',
+      'Seek to be exposed to positive Black Swans (asymmetric risk/reward setups).',
+      'Diversify and cap downside so extreme events damage but don\'t destroy you.'
+    ]
+  },
+  {
+    emoji: '🎯', title: 'Atomic Habits', author: 'James Clear', stars: 5,
+    note: 'Trading success is 90% habits and 10% analysis. Clear\'s system of 1% daily improvements compounds into excellence over time. Every trader who journals consistently, reviews their trades weekly, and sticks to their checklist is practicing atomic habit-building.',
+    lessons: [
+      'Make good trading habits obvious, attractive, easy, and satisfying.',
+      'Trade journaling is the keystone habit — it unlocks all other improvements.',
+      'Identity matters: say "I am a disciplined trader" before you act like one.',
+      'Design your environment to reduce impulsive decisions — remove distracting apps during sessions.',
+      'Review your system every week. What gets measured gets improved.'
+    ]
+  },
+  {
+    emoji: '📈', title: 'Market Wizards', author: 'Jack D. Schwager', stars: 5,
+    note: 'Schwager interviewed the world\'s greatest traders — from Paul Tudor Jones to Ed Seykota — and discovered that despite wildly different strategies, they all share the same psychological traits: iron discipline, obsessive risk management, and an ability to handle losses without emotion.',
+    lessons: [
+      'Every legendary trader has a clear method AND the discipline to follow it absolutely.',
+      'Cut losses quickly, always. No exception. No "it\'ll come back."',
+      'Position sizing is more important than entry timing.',
+      'The best traders love the process more than any single outcome.',
+      'Develop your own edge — copying someone else\'s system without belief will fail.'
+    ]
+  },
+  {
+    emoji: '🔑', title: 'Reminiscences of a Stock Operator', author: 'Edwin Lefèvre', stars: 4,
+    note: 'Based on the true story of Jesse Livermore, the greatest speculator in history who made and lost several fortunes. The book is a masterclass in reading market psychology, timing entries, and the devastating cost of ego in trading.',
+    lessons: [
+      'The market will tell you what it wants to do — if you learn to listen without ego.',
+      'Patience is the rarest and most valuable trading skill.',
+      'Never average down on a losing position — it compounds mistakes.',
+      'The money is made in the waiting, not in the trading.',
+      'Pride and stubbornness are the two greatest destroyers of trading accounts.'
+    ]
+  },
+  {
+    emoji: '🌊', title: 'The Disciplined Trader', author: 'Mark Douglas', stars: 5,
+    note: 'Douglas\'s first book explores the deeper roots of why traders fail: our social conditioning teaches us to avoid pain and seek approval — both fatal in markets. He teaches traders to rebuild their belief systems from scratch, aligned with how markets actually work.',
+    lessons: [
+      'Your beliefs about money, risk, and loss directly create your trading outcomes.',
+      'The market is never against you — it\'s indifferent. Your losses are your responsibility.',
+      'Build a framework of positive expectancy, not certainty.',
+      'Discipline is a skill you build — not a personality trait you either have or don\'t.',
+      'Define your rules completely before touching a chart. Pre-commitment beats willpower.'
+    ]
+  }
+];
+
+function scrollTo(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('active');
+}
+
+function openVideoModal(title, level, category, duration, description) {
+  const isPremium = level === 'advanced';
+  const content = isPremium ? `
+    <div style="text-align:center;padding:40px 20px;">
+      <div style="font-size:50px;margin-bottom:16px;">🔒</div>
+      <h3 style="font-family:'Playfair Display',serif;font-size:24px;margin-bottom:10px;">${title}</h3>
+      <p style="color:var(--muted);margin-bottom:24px;">This is a <strong style="color:var(--gold)">Premium</strong> lesson. Upgrade to access all ${84} AI video lessons.</p>
+      <button class="btn-hero" onclick="closeModal('videoModal');openPremiumModal('Pro Trader',799,'monthly')">Unlock with Pro — 799 ETB/mo</button>
+    </div>
+  ` : `
+    <div style="margin-bottom:12px;">
+      <div style="font-size:11px;color:var(--gold);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">${category} · ${level}</div>
+      <h3 style="font-family:'Playfair Display',serif;font-size:22px;margin-bottom:6px;">${title}</h3>
+      <div style="font-size:12px;color:var(--muted);">Duration: ${duration} · AI Tutor Lesson</div>
+    </div>
+    <div class="ai-player">
+      <div class="ai-avatar">🤖</div>
+      <div class="ai-wave">
+        <div class="wave-bar" style="height:20px"></div>
+        <div class="wave-bar" style="height:32px"></div>
+        <div class="wave-bar" style="height:40px"></div>
+        <div class="wave-bar" style="height:28px"></div>
+        <div class="wave-bar" style="height:36px"></div>
+        <div class="wave-bar" style="height:24px"></div>
+        <div class="wave-bar" style="height:18px"></div>
+      </div>
+      <div class="ai-caption">${description.substring(0, 120)}...</div>
+    </div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px;">${description}</div>
+    <div style="font-size:13px;font-weight:600;margin-bottom:8px;color:var(--gold)">🤖 Ask your AI tutor anything about this lesson:</div>
+    <div class="ai-chat-area" id="chatArea">
+      <div class="chat-msg">
+        <div class="chat-icon">🤖</div>
+        <div class="chat-bubble">Hello! I'm your AI forex tutor. I've just explained this lesson to you. What questions do you have? I'm here to help you understand every concept deeply.</div>
+      </div>
+    </div>
+    <div class="chat-input-row">
+      <input class="chat-input" id="chatInput" placeholder="Ask about this lesson..." onkeypress="if(event.key==='Enter')sendChat()">
+      <button class="chat-send" onclick="sendChat()">Ask</button>
+    </div>
+  `;
+  document.getElementById('videoModalContent').innerHTML = content;
+  document.getElementById('videoModal').classList.add('active');
+}
+
+async function sendChat() {
+  const input = document.getElementById('chatInput');
+  const area = document.getElementById('chatArea');
+  const msg = input.value.trim();
+  if (!msg) return;
+  input.value = '';
+
+  area.innerHTML += `<div class="chat-msg user"><div class="chat-icon">👤</div><div class="chat-bubble">${msg}</div></div>`;
+  area.scrollTop = area.scrollHeight;
+
+  const thinking = document.createElement('div');
+  thinking.className = 'chat-msg';
+  thinking.innerHTML = '<div class="chat-icon">🤖</div><div class="chat-bubble" style="color:var(--muted);font-style:italic;">Thinking...</div>';
+  area.appendChild(thinking);
+  area.scrollTop = area.scrollHeight;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1000,
+        system: 'You are a professional forex trading tutor teaching Ethiopian traders. Give clear, practical, encouraging answers about forex trading concepts. Keep responses concise (2-4 sentences). Use simple language. Occasionally relate to Ethiopian Birr (ETB) when relevant.',
+        messages: [{ role: 'user', content: msg }]
+      })
+    });
+    const data = await res.json();
+    const reply = data.content?.[0]?.text || "Great question! Let me explain that concept clearly for you.";
+    thinking.innerHTML = `<div class="chat-icon">🤖</div><div class="chat-bubble">${reply}</div>`;
+  } catch(e) {
+    thinking.innerHTML = `<div class="chat-icon">🤖</div><div class="chat-bubble">In forex, the spread is the difference between the buy (ask) price and the sell (bid) price — it's how brokers make money. For EUR/USD, if bid is 1.0840 and ask is 1.0842, the spread is 2 pips. Always account for the spread in your profit calculations!</div>`;
+  }
+  area.scrollTop = area.scrollHeight;
+}
+
+function openBookModal(index) {
+  const book = books[index];
+  const stars = '★'.repeat(book.stars) + '☆'.repeat(5 - book.stars);
+  const lessonsHtml = book.lessons.map(l => `
+    <div class="lesson-item"><span class="lesson-dot">◆</span><span>${l}</span></div>
+  `).join('');
+
+  document.getElementById('bookModalContent').innerHTML = `
+    <div class="book-modal-content">
+      <div class="book-modal-header">
+        <div class="book-modal-emoji">${book.emoji}</div>
+        <div>
+          <div class="book-modal-title">${book.title}</div>
+          <div class="book-modal-author">by ${book.author}</div>
+          <div class="book-modal-rating">${stars}</div>
+        </div>
+      </div>
+      <div class="book-full-note">${book.note}</div>
+      <div class="book-key-lessons">
+        <h4>📌 KEY TRADING LESSONS</h4>
+        ${lessonsHtml}
+      </div>
+      <div style="margin-top:24px;padding:16px;background:rgba(200,169,110,0.05);border:1px solid var(--border);border-radius:10px;font-size:13px;color:var(--muted);">
+        💡 Want a deep-dive video lesson on the psychology from this book? <a onclick="closeModal('bookModal')" style="color:var(--gold);cursor:pointer;">Check the AI Video library →</a>
+      </div>
+    </div>
+  `;
+  document.getElementById('bookModal').classList.add('active');
+}
+
+let selectedPayMethod = 'telebirr';
+function openPremiumModal(planName, price, period) {
+  document.getElementById('paymentModalContent').innerHTML = `
+    <h3 style="font-family:'Playfair Display',serif;font-size:22px;margin-bottom:6px;">Upgrade to ${planName}</h3>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:24px;">Complete your payment below in Ethiopian Birr (ETB)</p>
+    <div class="payment-form">
+      <div>
+        <div class="form-label" style="margin-bottom:8px;">Payment Method</div>
+        <div class="payment-methods">
+          <div class="pay-method active" onclick="selectPay(this,'telebirr')">📱 TeleBirr</div>
+          <div class="pay-method" onclick="selectPay(this,'cbebirr')">🏦 CBE Birr</div>
+          <div class="pay-method" onclick="selectPay(this,'card')">💳 Card</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Full Name</label>
+        <input class="form-input" placeholder="e.g. Dawit Mengistu" id="payName">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone Number / Email</label>
+        <input class="form-input" placeholder="e.g. 0912345678" id="payPhone">
+      </div>
+      <div class="payment-summary">
+        <div class="payment-summary-row"><span>${planName} (${period})</span><span>${price.toLocaleString()} ETB</span></div>
+        <div class="payment-summary-row"><span>Tax (0%)</span><span>0 ETB</span></div>
+        <div class="payment-summary-total"><span>Total Due</span><span>${price.toLocaleString()} ETB</span></div>
+      </div>
+      <button class="btn-pay" onclick="processPayment('${planName}', ${price})">Pay ${price.toLocaleString()} ETB →</button>
+      <div style="text-align:center;font-size:11px;color:var(--muted);">🔒 Secured payment · Cancel anytime · 7-day money-back guarantee</div>
+    </div>
+  `;
+  document.getElementById('paymentModal').classList.add('active');
+}
+
+function selectPay(el, method) {
+  document.querySelectorAll('.pay-method').forEach(e => e.classList.remove('active'));
+  el.classList.add('active');
+  selectedPayMethod = method;
+}
+
+function processPayment(plan, price) {
+  const name = document.getElementById('payName')?.value;
+  const phone = document.getElementById('payPhone')?.value;
+  if (!name || !phone) { alert('Please fill in all fields.'); return; }
+  document.getElementById('paymentModalContent').innerHTML = `
+    <div class="success-screen">
+      <div class="success-icon">🎉</div>
+      <div class="success-title">Welcome to ${plan}!</div>
+      <div class="success-sub">
+        Payment of <strong style="color:var(--gold)">${price.toLocaleString()} ETB</strong> confirmed.<br><br>
+        Your account has been upgraded. All ${plan === 'Pro Trader' ? '84 AI video lessons and 18 psychology books' : 'Elite features'} are now unlocked.<br><br>
+        A confirmation has been sent to your phone. Happy trading! 🇪🇹📈
+      </div>
+      <button class="btn-hero" style="margin-top:24px;" onclick="closeModal('paymentModal')">Start Learning Now</button>
+    </div>
+  `;
+}
+
+// Close modal on overlay click
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', function(e) {
+    if (e.target === this) closeModal(this.id);
+  });
+});
+</script>
+</body>
+</html>
